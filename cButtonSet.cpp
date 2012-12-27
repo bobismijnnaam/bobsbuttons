@@ -1,3 +1,123 @@
-
+#include <SDL/SDL.h>
+#include "mtwist.h"
 
 #include "buttons.h"
+
+cButtonSet::cButtonSet(TTF_Font* font, bool vert, eBAction fStartAction, int fSX, int fSY, int fDX, int fDY, int fMT, int fDT, fourDir fDir, Uint32 fNClr, Uint32 fHClr, SDL_PixelFormat* fFmt) {
+    f = font;
+
+    vertical = vert;
+    startAction = fStartAction;
+
+    sX = fSX;
+    sY = fSY;
+
+    dX = fDX;
+    dY = fDY;
+
+    mT = fMT;
+    dT = fDT;
+
+    nClr = fNClr;
+    hClr = fHClr;
+
+    dir = fDir;
+    fmt = fFmt;
+}
+
+cButtonSet::~cButtonSet() {
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        delete *i;
+    }
+}
+
+int cButtonSet::handleEvents(SDL_Event* event) {
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        (*i)->handleEvents(event);
+    }
+
+    return 0;
+}
+
+int cButtonSet::moveOut() {
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        (*i)->moveOut();
+    }
+
+    return 0;
+}
+
+int cButtonSet::moveIn() {
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        (*i)->moveIn();
+    }
+
+    return 0;
+}
+
+int cButtonSet::logic() {
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        (*i)->logic();
+    }
+
+    return 0;
+}
+
+int cButtonSet::render(SDL_Surface* dst) {
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        (*i)->render(dst);
+    }
+
+    return 0;
+}
+
+int cButtonSet::gClicked() {
+    int d = 0;
+
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        ++d;
+        if ((*i)->gState() == B_MCLICK) {
+            return d;
+        }
+    }
+
+    return 0;
+}
+
+int cButtonSet::gPressed() {
+    int d = 0;
+
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        ++d;
+        if ((*i)->gState() == B_MDOWN) {
+            return d;
+        }
+    }
+
+    return 0;
+}
+
+int cButtonSet::gReleased() {
+    int d = 0;
+
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        ++d;
+        if ((*i)->gState() == B_MUP) {
+            return d;
+        }
+    }
+
+    return 0;
+}
+
+int cButtonSet::addB(std::string capt) {
+    if (vertical) {
+        int d = mt_lrand() % dX;
+        int t = mt_lrand() % dT;
+        buttons.push_back(new cButton(f, capt, sX - dX * .5 + d, sY + buttons.size() * dY, startAction, dir, mT - dT * .5 + t, nClr, hClr, fmt));
+    } else {
+        // Horizontaal?
+    }
+
+    return 0;
+}

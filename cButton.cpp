@@ -118,6 +118,10 @@ int cButton::moveIn() {
 }
 
 int cButton::logic() {
+    if (actionStart == -1) {
+        actionStart = SDL_GetTicks();
+    }
+
     // Make sure the mousedown event happens ONCE, after that it's just a keyressed (B_MCLICK)
     int mX, mY;
     SDL_GetMouseState(&mX, &mY);
@@ -142,10 +146,6 @@ int cButton::logic() {
                 active = false;
                 break;
         }
-    }
-
-    if (actionStart == -1) {
-        actionStart = SDL_GetTicks();
     }
 
     return 0;

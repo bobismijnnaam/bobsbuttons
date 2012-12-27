@@ -4,6 +4,7 @@
 #include <SDL/SDL.h>
 #include <SDL/SDL_ttf.h>
 #include <string>
+#include <list>
 
 const int B_SCR_W = 800;
 const int B_SCR_H = 600;
@@ -30,31 +31,7 @@ enum fourDir {
     DIR_RIGHT
 } ;
 
-class cButton;
-
 int applySurfaceButton(SDL_Surface* src, SDL_Surface* dst, int x, int y);
-
-class cButtonSet {
-public:
-    cButtonSet();
-    ~cButtonSet();
-
-    int handleEvents();
-
-    int moveOut();
-    int moveIn();
-
-    int logic();
-    int render();
-
-    eBState gClicked();
-    eBState gPressed();
-    eBState gReleased();
-
-    int addB();
-private:
-
-};
 
 class cButton {
 public:
@@ -93,6 +70,42 @@ private:
 
     SDL_Surface* sNull;
     SDL_Surface* sHover;
+};
+
+class cButtonSet {
+public:
+    cButtonSet(TTF_Font* font, bool vert, eBAction fStartAction, int fSX, int fSY, int fDX, int fDY, int fMT, int fDT, fourDir fDir, Uint32 fNClr, Uint32 fHClr, SDL_PixelFormat* fFmt);
+    ~cButtonSet();
+
+    int handleEvents(SDL_Event* event);
+
+    int moveOut();
+    int moveIn();
+
+    int logic();
+    int render(SDL_Surface* dst);
+
+    int gClicked();
+    int gPressed();
+    int gReleased();
+
+    int addB(std::string capt);
+private:
+    std::list<cButton*> buttons;
+
+    eBAction startAction;
+
+    TTF_Font* f;
+    bool vertical;
+
+    int sX, sY;
+    int dX, dY;
+    int mT, dT;
+
+    fourDir dir;
+
+    Uint32 nClr, hClr;
+    SDL_PixelFormat* fmt;
 };
 
 #endif
