@@ -35,6 +35,14 @@
 		<Unit filename="cButton.cpp" />
 		<Unit filename="cButtonSet.cpp" />
 		<Unit filename="main.cpp" />
+		<Unit filename="mtwist.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="mtwist.h" />
+		<Unit filename="randistrs.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="randistrs.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />

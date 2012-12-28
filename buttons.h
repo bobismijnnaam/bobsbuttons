@@ -42,6 +42,9 @@ public:
 
     int moveOut();
     int moveIn();
+    int on();
+    int off();
+    bool onOff();
 
     int logic();
     int render(SDL_Surface* dst);
@@ -81,6 +84,9 @@ public:
 
     int moveOut();
     int moveIn();
+    int on(int p, bool all);
+    int off(int p, bool all);
+    bool onOff(int p);
 
     int logic();
     int render(SDL_Surface* dst);

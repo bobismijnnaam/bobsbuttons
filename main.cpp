@@ -33,7 +33,7 @@ int main(int args, char *argv[]) {
     t.w = 10;
     t.h = t.w;
 
-    std::string caption = "Move Out";
+    std::string caption = "Deactivate";
 
     // Game loop
     while (!quit) {
@@ -55,7 +55,7 @@ int main(int args, char *argv[]) {
 
         if (b.gPressed() == 1) {
             b.addB(caption);
-            caption = "Move In";
+            caption = "Activate";
         }
 
         if (b.gPressed() == 2) {
@@ -63,11 +63,11 @@ int main(int args, char *argv[]) {
         }
 
         if (b.gPressed() == 3) {
-            b.moveOut();
+            b.off(3, true);
         }
 
         if (b.gReleased() == 4) {
-            b.moveIn();
+            b.on(3, false);
         }
 
         // Logic

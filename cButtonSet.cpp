@@ -55,6 +55,57 @@ int cButtonSet::moveIn() {
     return 0;
 }
 
+int cButtonSet::on(int p, bool all) {
+    if (all) {
+        for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+            (*i)->on();
+        }
+    } else {
+        int c = 0;
+        for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+            ++c;
+            if (c == p) {
+                (*i)->on();
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+int cButtonSet::off(int p, bool all) {
+    if (all) {
+        for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+            (*i)->off();
+        }
+    } else {
+        int c = 0;
+        for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+            ++c;
+            if (c == p) {
+                (*i)->off();
+                break;
+            }
+        }
+    }
+
+    return 0;
+}
+
+bool cButtonSet::onOff(int p) {
+    int c = 0;
+    for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
+        ++c;
+        if (p == c) {
+            return (*i)->onOff();
+            break;
+        }
+    }
+
+    return true;
+}
+
 int cButtonSet::logic() {
     for (std::list<cButton*>::iterator i = buttons.begin(), end = buttons.end(); i != end; ++i) {
         (*i)->logic();

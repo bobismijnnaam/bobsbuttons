@@ -117,6 +117,20 @@ int cButton::moveIn() {
     return 0;
 }
 
+int cButton::on() {
+    active = true;
+    return 0;
+}
+
+int cButton::off() {
+    active = false;
+    return 0;
+}
+
+bool cButton::onOff() {
+    return active;
+}
+
 int cButton::logic() {
     if (actionStart == -1) {
         actionStart = SDL_GetTicks();
