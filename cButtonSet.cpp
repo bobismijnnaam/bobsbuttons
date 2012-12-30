@@ -167,7 +167,10 @@ int cButtonSet::addB(std::string capt) {
         int t = mt_lrand() % dT;
         buttons.push_back(new cButton(f, capt, sX - dX * .5 + d, sY + buttons.size() * dY, startAction, dir, mT - dT * .5 + t, nClr, hClr, fmt));
     } else {
-        // Horizontaal?
+        // Horizontaal
+        int d = mt_lrand() % dY;
+        int t = mt_lrand() % dT;
+        buttons.push_back(new cButton(f, capt, sX + buttons.size() * dX, sY - dX * .5 + d, startAction, dir, mT - dT * .5 + t, nClr, hClr, fmt));
     }
 
     return 0;
